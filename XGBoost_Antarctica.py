@@ -31,7 +31,7 @@ from xgboost import plot_tree
 import xgboost as xgb
 
 
-Attempt='10th'
+
 Run='39'
 Res='05'
 gridsearch='yes'
@@ -45,14 +45,14 @@ Data_o.loc[(Data_o['Lon']==-180) & (Data_o['Lat']==90), 'HF'] = np.nan
 Data_o= Data_o.round({'Quality': 0, 'Tectonics': 0, 'Geology': 0})
     
     
-plotting(Data_o.Lon,Data_o.Lat,Data_o.HF,'[mW/m$^2$]','Heat_Flow',0,120,Attempt,Run)
+plotting(Data_o.Lon,Data_o.Lat,Data_o.HF,'[mW/m$^2$]','Heat_Flow',0,120,Run)
 #plotting(Data_o.Lon,Data_o.Lat,Data_o.Bz5,'[nT]','Bz at 5km',-200,200)
 #plotting(Data_o.Lon,Data_o.Lat,Data_o.iloc[:,3],'[Unit]','Geology',0,6)
 
 
 Data_o = Data_o.dropna(subset=(['HF', 'Lon', 'Lat'])) 
 M=np.vstack((Data_o.Lon, Data_o.Lat, Data_o.HF)).T
-np.savetxt('%sAttempt/Binned_HF_measurements_%s.txt' % (Attempt,Run), M, fmt='%.3f')
+np.savetxt('Results/Binned_HF_measurements_%s.txt' % Run, M, fmt='%.3f')
 
 Data_o.info()
 Data_o.Topo = Data_o.Topo.fillna(-999)
@@ -102,7 +102,7 @@ Data_ANT = Data.loc[(Data['Lat']<=-60)]
 #plotting(Data_ANT.Lon,Data_ANT.Lat,Data_ANT.HF,'[mW/m$^2$]','Heat_Flow_not_Greenland',0,120,Attempt,Run)
 
 
-plotting(Data.Lon,Data.Lat,Data.HF,'[mW/m$^2$]','Heat_Flow_filtered',0,120,Attempt,Run)
+plotting(Data.Lon,Data.Lat,Data.HF,'[mW/m$^2$]','Heat_Flow_filtered',0,120,Run)
 
 #
 #Features = ['Tectonics', 'Bz5', 'Topo', 'MeanCurv', 'Sus', 'Transform', 'YoungRift',
@@ -180,7 +180,7 @@ ms_error=mean_squared_error(y_test,y_pred)
 r2=r2_score(y_test,y_pred)
 RMSE=np.sqrt(ms_error)#/Mean
 M=np.vstack((model_score, ms_error, r2, RMSE, LR, MD, SS)).T
-np.savetxt('%sAttempt/Scores_%s.txt' % (Attempt,Run), M, fmt='%.3f', 
+np.savetxt('Results/Scores_%s.txt' % Run, M, fmt='%.3f', 
            header='modelScore MSerror r2 RMSE LearningRate MaxDepth minSampleSplit')
 
 ## define the evaluation method
@@ -190,7 +190,7 @@ np.savetxt('%sAttempt/Scores_%s.txt' % (Attempt,Run), M, fmt='%.3f',
 #print('Mean Accuracy: %.3f (%.3f)' % (np.mean(n_scores), np.std(n_scores)))
 
 Corr=np.vstack((y_test, y_pred)).T
-np.savetxt('%sAttempt/Y_%s.txt' % (Attempt,Run), Corr, fmt='%.3f', 
+np.savetxt('Results/Y_%s.txt' % Run, Corr, fmt='%.3f', 
            header='Actual Predicted')
 
 
@@ -199,7 +199,7 @@ print('Mean squared error:', ms_error)
 print('Test Variance score (r2):', r2)
 print('RMSE:', RMSE)
 ###############################################################################
-plotPredictedTest(y_test,y_pred,Attempt,Run)
+plotPredictedTest(y_test,y_pred,Run)
 #Topo = PickedForTest(11,x_test)
 #plotPredictedTest(y_test,y_pred,Attempt,Run,Topo,min(Topo)/1.4,max(Topo)/1.4,'Topo')
 
@@ -233,14 +233,14 @@ plt.xticks(fontsize=15)
 plt.yticks(fontsize=15)
 #plt.title('Variable Importance',fontsize=20)
 plt.tight_layout()
-fig.savefig('%sAttempt/Importance_Deviance_%s.jpg' % (Attempt,Run), dpi=300)
+fig.savefig('Results/Importance_Deviance_%s.jpg' % Run, dpi=300)
 plt.show()
 
 
 #plt.rcParams['figure.figsize'] = [80, 50]
-#xgb.plot_tree(model,num_trees=0,rankdir='LR').get_figure().savefig('%sAttempt/Tree1st_%s.jpg' % (Attempt,Run), dpi=300)
+#xgb.plot_tree(model,num_trees=0,rankdir='LR').get_figure().savefig('%/Tree1st_%s.jpg' % (Target,Run), dpi=300)
 #plt.close()
-#xgb.plot_tree(model,num_trees=999,rankdir='LR').get_figure().savefig('%sAttempt/TreeLast_%s.jpg' % (Attempt,Run), dpi=300)
+#xgb.plot_tree(model,num_trees=999,rankdir='LR').get_figure().savefig('%sTarget/TreeLast_%s.jpg' % (Target,Run), dpi=300)
 #plt.close()
 
 
@@ -303,8 +303,8 @@ new_pred = model.predict(X_new)
 #                       'Sus \n [m]': X_new.Sus,'Bz \n [m]': X_new.Bz5})
 #    DF=DF[DF.MeanCurv!=-999]    
 #    Pairplotting(DF,Attempt,Run)
-plotting(Lon_p,Lat_p,new_pred,'[mW/m$^2$]','Predicted_Heat_Flux',0,120,Attempt,Run)
+plotting(Lon_p,Lat_p,new_pred,'[mW/m$^2$]','Predicted_Heat_Flux',0,120,Run)
 M=np.vstack((Lon_p,Lat_p, new_pred)).T
-np.savetxt('%sAttempt/Predicted_HF_%s.txt' % (Attempt,Run), M, fmt='%.3f')
+np.savetxt('Results/Predicted_HF_%s.txt' % Run, M, fmt='%.3f')
 
 
