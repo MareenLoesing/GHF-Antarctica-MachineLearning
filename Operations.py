@@ -13,7 +13,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import GradientBoostingRegressor
 import xgboost as xgb
 
-def plotting(Lon,Lat,value,unit,name,a,b,Run):
+def plotting(Lon,Lat,value,unit,name,a,b,Attempt,Run):
     fig = plt.figure(figsize=(10,10))
     ax = plt.axes(projection=ccrs.PlateCarree())
     ax.coastlines()
@@ -23,7 +23,7 @@ def plotting(Lon,Lat,value,unit,name,a,b,Run):
     plt.title('%s' % name, fontsize=15)
     cb.ax.tick_params(labelsize=15)
     plt.show()
-    fig.savefig('Results/Plots/%s_%s.jpg' % (name,Run), dpi=300)
+    fig.savefig('%sAttempt/Plots/%s_%s.jpg' % (Attempt,name,Run), dpi=300)
        
 def GridSearch(x,y):
     param_grid={'learning_rate':[0.01,0.02],
@@ -34,11 +34,10 @@ def GridSearch(x,y):
     return gs_cv.best_params_
      
 def GridSearchX(x,y):
-    params={'learning_rate':[0.01,0.015],'max_depth':[6,10,11],
-        'subsample':[0.5,0.7,0.8,1],'min_samples_split':[5,10,20]}
 #    params={'learning_rate':[0.01,0.015],'max_depth':[6,10,11],
-#        'subsample':[0.5,0.7,0.8,1]}
-    #, 'gamma':[5,10,50]
+#        'subsample':[0.5,0.7,0.8,1],'min_samples_split':[5,10,20]}
+    params={'learning_rate':[0.01,0.001],'max_depth':[6,10,11],
+        'subsample':[0.5,0.7,0.8,1],'min_samples_split':[5,10,20]}
     model = xgb.XGBRegressor(objective='reg:squarederror',n_estimators=1000)
     grid=GridSearchCV(model,params, cv=5,n_jobs=-1).fit(x,y)
     return grid.best_params_
@@ -52,8 +51,8 @@ def PickedForTest(number,x_test):
     return Feature
     
 
-def plotPredictedTest(x,y,Run,value=None,d=None,e=None):
-    fig, ax = plt.subplots(figsize=(12,8))
+def plotPredictedTest(x,y,Attempt,Run,value=None,d=None,e=None):
+    fig, ax = plt.subplots(figsize=(9,7))
     if not value is None:
         cmap = plt.get_cmap('gist_earth')
         plt.scatter(x,y,c=value,cmap=cmap,edgecolors=(0,0,0),vmin=d,vmax=e)
@@ -61,15 +60,15 @@ def plotPredictedTest(x,y,Run,value=None,d=None,e=None):
         cb.ax.tick_params(labelsize=15)
         cb.set_label('[m]',fontsize=15, rotation=270)
     else:
-        plt.scatter(x,y, edgecolors=(0,0,0))
+        plt.scatter(x,y, edgecolors=(0,0,0), color='darkblue')
     plt.plot([min(x),max(x)], [min(x),max(x)], 'k--', lw=2)
-    plt.xlabel('Actual'+ '\n' + '[mW/m$^2$]',fontsize=15)
-    plt.ylabel('Predicted'+ '\n' + '[mW/m$^2$]',fontsize=15)
+    plt.xlabel('Actual'+ '\n' + '[mW/m$^2$]',fontsize=20)
+    plt.ylabel('Predicted'+ '\n' + '[mW/m$^2$]',fontsize=20)
     plt.xticks(fontsize=15)
     plt.yticks(fontsize=15)
     #plt.title('Ground Truth vs Predicted',fontsize=20)
     plt.tight_layout()
-    fig.savefig('Results/Test-Pedicted_%s.jpg' % Run, dpi=300)
+    fig.savefig('%sAttempt/Plots/Test-Pedicted_%s.jpg' % (Attempt,Run), dpi=300)
     plt.show()
     
     
@@ -77,7 +76,7 @@ def plotPredictedTest(x,y,Run,value=None,d=None,e=None):
     
     
     
-def Pairplotting(DF,Run):
+def Pairplotting(DF,Attempt,Run):
     plt.rcParams['figure.figsize']=40,40
     sns.set_context("paper", rc={"font.size":19,"axes.labelsize":12}) 
     sns.set("notebook", rc={'figure.figsize':(40,40)}, font_scale=1.6)
@@ -88,7 +87,7 @@ def Pairplotting(DF,Run):
     sns_plot.map_lower(sns.kdeplot, cmap="jet", shade=True, n_levels=100, shade_lowest=False)
     sns_plot.map_diag(sns.distplot, kde=False)
     sns_plot.map_upper(plt.scatter, edgecolor="white", color="#626262")
-    sns_plot.savefig("Results/Pairplot_%s" % Run)
+    sns_plot.savefig("%sAttempt/Plots/Pairplot_%s" % (Attempt,Run))
     
     
     
