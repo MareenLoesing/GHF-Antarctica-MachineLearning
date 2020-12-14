@@ -2,7 +2,7 @@
 """
 Created on Mon May  4 10:39:39 2020
 
-@author: sungw686
+@author: Mareen Loesing
 """
 
 import seaborn as sns
