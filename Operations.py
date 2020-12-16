@@ -13,7 +13,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import GradientBoostingRegressor
 import xgboost as xgb
 
-def plotting(Lon,Lat,value,unit,name,a,b,Attempt,Run):
+def plotting(Lon,Lat,value,unit,name,a,b,Plot_file,Run):
     fig = plt.figure(figsize=(10,10))
     ax = plt.axes(projection=ccrs.PlateCarree())
     ax.coastlines()
@@ -23,7 +23,7 @@ def plotting(Lon,Lat,value,unit,name,a,b,Attempt,Run):
     plt.title('%s' % name, fontsize=15)
     cb.ax.tick_params(labelsize=15)
     plt.show()
-    fig.savefig('%sAttempt/Plots/%s_%s.jpg' % (Attempt,name,Run), dpi=300)
+    fig.savefig('%s/%s_%s.jpg' % (Plot_file,name,Run), dpi=300)
        
 def GridSearch(x,y):
     param_grid={'learning_rate':[0.01,0.02],
@@ -51,7 +51,7 @@ def PickedForTest(number,x_test):
     return Feature
     
 
-def plotPredictedTest(x,y,Attempt,Run,value=None,d=None,e=None):
+def plotPredictedTest(x,y,Plot_file,Run,value=None,d=None,e=None):
     fig, ax = plt.subplots(figsize=(9,7))
     if not value is None:
         cmap = plt.get_cmap('gist_earth')
@@ -60,7 +60,7 @@ def plotPredictedTest(x,y,Attempt,Run,value=None,d=None,e=None):
         cb.ax.tick_params(labelsize=15)
         cb.set_label('[m]',fontsize=15, rotation=270)
     else:
-        plt.scatter(x,y, edgecolors=(0,0,0), color='darkblue')
+        plt.scatter(x,y, edgecolors=(0,0,0))
     plt.plot([min(x),max(x)], [min(x),max(x)], 'k--', lw=2)
     plt.xlabel('Actual'+ '\n' + '[mW/m$^2$]',fontsize=20)
     plt.ylabel('Predicted'+ '\n' + '[mW/m$^2$]',fontsize=20)
@@ -68,7 +68,7 @@ def plotPredictedTest(x,y,Attempt,Run,value=None,d=None,e=None):
     plt.yticks(fontsize=15)
     #plt.title('Ground Truth vs Predicted',fontsize=20)
     plt.tight_layout()
-    fig.savefig('%sAttempt/Plots/Test-Pedicted_%s.jpg' % (Attempt,Run), dpi=300)
+    fig.savefig('%s/Test-Pedicted_%s.jpg' % (Plot_file,Run), dpi=300)
     plt.show()
     
     
@@ -76,7 +76,7 @@ def plotPredictedTest(x,y,Attempt,Run,value=None,d=None,e=None):
     
     
     
-def Pairplotting(DF,Attempt,Run):
+def Pairplotting(DF,Plot_file,Run):
     plt.rcParams['figure.figsize']=40,40
     sns.set_context("paper", rc={"font.size":19,"axes.labelsize":12}) 
     sns.set("notebook", rc={'figure.figsize':(40,40)}, font_scale=1.6)
@@ -87,7 +87,7 @@ def Pairplotting(DF,Attempt,Run):
     sns_plot.map_lower(sns.kdeplot, cmap="jet", shade=True, n_levels=100, shade_lowest=False)
     sns_plot.map_diag(sns.distplot, kde=False)
     sns_plot.map_upper(plt.scatter, edgecolor="white", color="#626262")
-    sns_plot.savefig("%sAttempt/Plots/Pairplot_%s" % (Attempt,Run))
+    sns_plot.savefig("%s/Pairplot_%s" % (Plot_file,Run))
     
     
     
