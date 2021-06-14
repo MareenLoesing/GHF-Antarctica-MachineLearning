@@ -2,6 +2,8 @@
 Gradient boosting regression algorithm for prediction of geothermal heat flow in Antarctica
 -- Still in progress
 
+RESULTS
+
 Resulting predicted heat flow values are available here:
 https://doi.org/10.1594/PANGAEA.930237
 
