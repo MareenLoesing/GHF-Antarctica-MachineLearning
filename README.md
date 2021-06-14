@@ -4,6 +4,9 @@ Gradient boosting regression algorithm for prediction of geothermal heat flow in
 
 RESULTS
 
+Publication: Lösing, M.; Ebbing, J. (2021): Predicting Geothermal Heat Flow in Antarctica With a Machine Learning Approach. Journal of Geophysical Research: Solid Earth, 126(6), https://doi.org/10.1029/2020JB021499
+
+
 Resulting predicted heat flow values are available here:
 https://doi.org/10.1594/PANGAEA.930237
 
