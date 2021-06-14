@@ -2,6 +2,10 @@
 Gradient boosting regression algorithm for prediction of geothermal heat flow in Antarctica
 -- Still in progress
 
+Resulting predicted heat flow values are available here:
+https://doi.org/10.1594/PANGAEA.930237
+
+
 HEAT FLOW data is from:
 
 - http://www.heatflow.org/ (downloaded  10.02.2020, an updated version is now available by Jennings, S. S., Hasterok, D., & Lucazeau, F. (2021). Thermoglobe: Extending the global heat flow database.Journal TBD)
