@@ -2,15 +2,15 @@
 Gradient boosting regression algorithm for prediction of geothermal heat flow in Antarctica
 -- Still in progress
 
-RESULTS
+**RESULTS**
 
 Publication: Lösing, M.; Ebbing, J. (2021): Predicting Geothermal Heat Flow in Antarctica With a Machine Learning Approach. Journal of Geophysical Research: Solid Earth, 126(6), https://doi.org/10.1029/2020JB021499
 
 
-Resulting predicted heat flow with minimum, maximum and maximum absolute difference values are available in file 'HF_Min_Max_MaxAbs.csv'.
+Resulting predicted heat flow with minimum, maximum, and maximum absolute difference values are available in file **'HF_Min_Max_MaxAbs.csv'**.
 
 
-HEAT FLOW data is from:
+**HEAT FLOW** data is from:
 
 - http://www.heatflow.org/ (downloaded  10.02.2020, an updated version is now available by Jennings, S. S., Hasterok, D., & Lucazeau, F. (2021). Thermoglobe: Extending the global heat flow database.Journal TBD)
 
@@ -20,7 +20,7 @@ HEAT FLOW data is from:
 
 
 
-FEATURES are from:
+**FEATURES** are from:
 
 Global Moho: Szwillus, W., Afonso, J. C. C., Ebbing, J., & Mooney, W. D. (2019). Global crustal thickness and velocity structure from geostatistical analysis of seismic data. Journal of Geophysical Research: Solid Earth, 124, 1626– 1652. https://doi.org/10.1029/2018JB016593
 
