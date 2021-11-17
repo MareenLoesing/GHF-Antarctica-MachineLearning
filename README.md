@@ -7,8 +7,7 @@ RESULTS
 Publication: Lösing, M.; Ebbing, J. (2021): Predicting Geothermal Heat Flow in Antarctica With a Machine Learning Approach. Journal of Geophysical Research: Solid Earth, 126(6), https://doi.org/10.1029/2020JB021499
 
 
-Resulting predicted heat flow values are available here:
-https://doi.org/10.1594/PANGAEA.930237
+Resulting predicted heat flow with minimum, maximum and maximum absolute difference values are available in file 'HF_Min_Max_MaxAbs.csv'.
 
 
 HEAT FLOW data is from:
